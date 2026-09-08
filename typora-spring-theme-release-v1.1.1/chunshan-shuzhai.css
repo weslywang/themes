@@ -1,0 +1,632 @@
+/*
+ * 春山书斋 · Chunshan Shuzhai
+ * A calm Chinese classical theme for Typora.
+ */
+
+:root {
+  --paper: #f7f1e3;
+  --paper-light: #fcf9f0;
+  --paper-deep: #eee6d5;
+  --ink: #2e302d;
+  --ink-soft: #62655f;
+  --indigo: #506477;
+  --bamboo: #72866b;
+  --bamboo-pale: #e7eadf;
+  --cinnabar: #b65a4a;
+  --line: #ddd5c5;
+  --selection: #dce5d8;
+  --code-bg: #f1ede3;
+  --side-bg: #f2ecdf;
+  --control-text-color: var(--ink);
+  --active-file-bg-color: #e6e2d5;
+  --active-file-text-color: var(--ink);
+  --active-file-border-color: var(--bamboo);
+  --side-bar-bg-color: var(--side-bg);
+  --item-hover-bg-color: #e9e5d9;
+  --window-border: 1px solid var(--line);
+}
+
+html {
+  font-size: 16px;
+  background: var(--paper);
+}
+
+body {
+  color: var(--ink);
+  background: var(--paper);
+  font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", SimSun, serif;
+  font-weight: 400;
+  font-kerning: normal;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+content {
+  background-color: var(--paper);
+  background-image:
+    url("./chunshan-shuzhai/morning-mist-birds.png"),
+    linear-gradient(rgba(247, 241, 227, 0.76), rgba(247, 241, 227, 0.76)),
+    url("./chunshan-shuzhai/mountains.png");
+  background-repeat: no-repeat;
+  background-position: center top, center, center bottom;
+  background-size: 100% auto, auto, max(100%, 1500px) auto;
+  background-blend-mode: darken, normal, normal;
+}
+
+content #write,
+#write {
+  box-sizing: border-box;
+  max-width: 920px;
+  min-height: 100%;
+  margin: 0 auto;
+  padding: 4rem clamp(2rem, 7vw, 6rem) 11rem;
+  background: transparent;
+  color: var(--ink);
+  font-size: 1.05rem;
+  line-height: 1.8;
+  letter-spacing: 0.018em;
+  overflow-wrap: break-word;
+  caret-color: var(--cinnabar);
+}
+
+::selection {
+  color: var(--ink);
+  background: var(--selection);
+}
+
+#write p {
+  margin: 0.72em 0;
+}
+
+#write h1,
+#write h2,
+#write h3,
+#write h4,
+#write h5,
+#write h6 {
+  color: var(--indigo);
+  font-family: "STKaiti", KaiTi, "Noto Serif SC", serif;
+  font-weight: 400;
+  line-height: 1.35;
+}
+
+#write h1 {
+  margin: 0 0 2.2rem;
+  color: var(--ink);
+  font-size: 2.35rem;
+  text-align: center;
+  letter-spacing: 0.14em;
+}
+
+#write h1::after {
+  content: "";
+  display: block;
+  width: min(12rem, 52%);
+  height: 1.65rem;
+  margin: 0.55rem auto 0;
+  background: url("./chunshan-shuzhai/h1-cloud.png") center / contain no-repeat;
+}
+
+#write h2 {
+  margin: 2.2rem 0 0.8rem;
+  font-size: 1.68rem;
+}
+
+#write h2::after {
+  content: "";
+  display: block;
+  width: min(17.5rem, 58%);
+  height: 1.7rem;
+  margin-top: 0.25rem;
+  background: url("./chunshan-shuzhai/h2-mountain.png") left center / contain no-repeat;
+}
+
+#write h3 {
+  margin: 1.8rem 0 0.65rem;
+  font-size: 1.36rem;
+}
+
+#write h4 { font-size: 1.2rem; }
+#write h5 { font-size: 1.08rem; }
+#write h6 { color: var(--ink-soft); font-size: 1rem; }
+
+#write h3::after,
+#write h4::after,
+#write h5::after {
+  content: "";
+  display: inline-block;
+  margin-left: 0.45em;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#write h3::after {
+  width: 1.9rem;
+  height: 1.3rem;
+  background-image: url("./chunshan-shuzhai/h3-ruyi.png");
+  vertical-align: -0.28em;
+}
+
+#write h4::after {
+  width: 1.8rem;
+  height: 1.05rem;
+  background-image: url("./chunshan-shuzhai/h4-bamboo.png");
+  vertical-align: -0.18em;
+}
+
+#write h5::after {
+  width: 1.05rem;
+  height: 1.05rem;
+  background-image: url("./chunshan-shuzhai/h5-seal.png");
+  vertical-align: -0.16em;
+}
+
+#write strong {
+  color: #242623;
+  font-weight: 600;
+}
+
+#write em {
+  color: #545d53;
+}
+
+#write mark {
+  padding: 0.06em 0.2em;
+  color: inherit;
+  background: #eadfae;
+  border-radius: 2px;
+}
+
+#write a {
+  color: var(--indigo);
+  text-decoration: none;
+  border-bottom: 1px solid #a9b3ba;
+}
+
+#write a:hover {
+  color: var(--cinnabar);
+  border-bottom-color: var(--cinnabar);
+}
+
+#write ul,
+#write ol {
+  padding-left: 2em;
+}
+
+#write li {
+  margin: 0.22em 0;
+}
+
+#write li::marker {
+  color: var(--bamboo);
+}
+
+#write blockquote:not(.md-alert) {
+  position: relative;
+  margin: 1.35rem 0;
+  padding: 0.9rem 1.35rem 0.95rem 1.5rem;
+  color: #454c46;
+  background: rgba(114, 134, 107, 0.055);
+  border: 1px solid rgba(114, 134, 107, 0.13);
+  border-left: 0;
+  border-radius: 0 8px 8px 0;
+  box-shadow: inset 3px 0 rgba(114, 134, 107, 0.68);
+}
+
+#write blockquote:not(.md-alert)::before {
+  content: "";
+  position: absolute;
+  top: 1.05rem;
+  left: -0.21rem;
+  width: 0.42rem;
+  height: 0.42rem;
+  background: var(--paper-light);
+  border: 1px solid rgba(182, 90, 74, 0.72);
+  border-radius: 1px;
+  transform: rotate(45deg);
+}
+
+#write blockquote:not(.md-alert) p { margin: 0.42em 0; }
+#write blockquote:not(.md-alert) p:first-child { margin-top: 0; }
+#write blockquote:not(.md-alert) p:last-child { margin-bottom: 0; }
+
+#write blockquote:not(.md-alert) > ul,
+#write blockquote:not(.md-alert) > ol {
+  margin: 0.55em 0 0.15em;
+  padding-left: 1.45em;
+}
+
+#write blockquote:not(.md-alert) li {
+  margin: 0.16em 0;
+}
+
+#write blockquote:not(.md-alert) li::marker {
+  color: rgba(101, 123, 96, 0.88);
+  font-size: 0.82em;
+}
+
+#write hr {
+  width: 58%;
+  height: 1px;
+  margin: 2.6rem auto;
+  border: 0;
+  background: linear-gradient(90deg, transparent, var(--bamboo), transparent);
+}
+
+#write code,
+#write tt {
+  padding: 0.13em 0.38em;
+  color: #435b50;
+  background: rgba(114, 134, 107, 0.09);
+  border: 1px solid rgba(114, 134, 107, 0.2);
+  border-radius: 4px;
+  font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+  font-size: 0.88em;
+}
+
+#write .md-fences {
+  position: relative;
+  margin: 1.5rem 0;
+  padding: 1.2rem 1.35rem 1.25rem;
+  color: #35413b;
+  background: #f2eee4;
+  border: 1px solid #ddd6c8;
+  border-top: 2px solid rgba(80, 100, 119, 0.58);
+  border-radius: 8px;
+  box-shadow: 0 3px 12px rgba(46, 48, 45, 0.045), inset 0 1px rgba(255, 255, 255, 0.58);
+  font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+  font-size: 0.9rem;
+  line-height: 1.65;
+  tab-size: 4;
+}
+
+#write .md-fences.md-focus {
+  border-color: rgba(80, 100, 119, 0.42);
+  border-top-color: rgba(80, 100, 119, 0.82);
+  box-shadow: 0 0 0 2px rgba(80, 100, 119, 0.075);
+}
+
+#write .md-fences code {
+  padding: 0;
+  background: transparent;
+  border: 0;
+}
+
+.code-tooltip {
+  padding: 0.12rem 0.42rem;
+  color: var(--indigo);
+  background: #e9e5dc;
+  border: 1px solid #d5cec0;
+  border-radius: 4px;
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 0.78rem;
+  letter-spacing: 0.02em;
+}
+
+#write .md-fences .CodeMirror,
+#write .md-fences .CodeMirror-scroll,
+#write .md-fences .CodeMirror-gutters {
+  background: transparent;
+}
+
+#write .md-fences .CodeMirror-gutters {
+  border-right: 1px solid rgba(80, 100, 119, 0.12);
+}
+
+#write .md-fences .CodeMirror-linenumber {
+  padding: 0 0.7rem 0 0.15rem;
+  color: #aaa89f;
+}
+
+#write .md-fences .CodeMirror-selected,
+#write .md-fences .CodeMirror-selectedtext {
+  background: rgba(114, 134, 107, 0.16) !important;
+}
+
+#write .md-fences .CodeMirror-cursor {
+  border-left: 2px solid var(--cinnabar) !important;
+}
+
+#write pre.md-meta-block {
+  margin: 1.4rem 0;
+  padding: 0.85rem 1.1rem;
+  color: #6d706a;
+  background: rgba(80, 100, 119, 0.045);
+  border: 1px dashed #cfc8ba;
+  border-left: 3px solid rgba(80, 100, 119, 0.45);
+  border-radius: 0 5px 5px 0;
+  font-family: "Cascadia Code", Consolas, monospace;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+
+.cm-s-inner .cm-keyword,
+.cm-s-inner .cm-atom { color: #6c5879; }
+.cm-s-inner .cm-number { color: var(--cinnabar); }
+.cm-s-inner .cm-def,
+.cm-s-inner .cm-variable { color: #425f70; }
+.cm-s-inner .cm-string { color: #5f765b; }
+.cm-s-inner .cm-comment { color: #8a8b83; font-style: italic; }
+.cm-s-inner .cm-tag,
+.cm-s-inner .cm-property { color: #8a594f; }
+.cm-s-inner .cm-builtin,
+.cm-s-inner .cm-type { color: #716042; }
+.cm-s-inner .cm-attribute,
+.cm-s-inner .cm-meta { color: #7a6255; }
+
+#write kbd {
+  padding: 0.08em 0.4em;
+  color: #4b504b;
+  background: var(--paper-light);
+  border: 1px solid #cbc4b6;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 rgba(46, 48, 45, 0.08);
+  font-family: "Microsoft YaHei UI", sans-serif;
+  font-size: 0.78em;
+}
+
+#write table,
+#write .md-table-fig .md-table {
+  width: 100%;
+  margin: 1.5rem 0;
+  border-collapse: collapse;
+  font-size: 0.94rem;
+}
+
+#write th,
+#write td,
+#write .md-table-fig .md-table th,
+#write .md-table-fig .md-table td {
+  padding: 0.6rem 0.75rem;
+  border: 1px solid var(--line);
+}
+
+#write th,
+#write .md-table-fig .md-table th {
+  color: #3f5245;
+  background: #e4e7dc;
+  font-weight: 600;
+}
+
+#write tr:nth-child(even) td {
+  background: color-mix(in srgb, var(--paper-light) 64%, transparent);
+}
+
+#write img {
+  max-width: 100%;
+  border-radius: 5px;
+}
+
+#write figcaption,
+#write .md-image > .md-meta {
+  color: var(--ink-soft);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 0.86rem;
+}
+
+#write .md-toc {
+  padding: 1rem 1.25rem;
+  background: color-mix(in srgb, var(--paper-light) 80%, transparent);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+
+#write .md-task-list-item > input {
+  margin-left: -1.45em;
+  accent-color: var(--bamboo);
+}
+
+#write .md-task-list-item.task-list-done {
+  color: #8a8b83;
+}
+
+#write .footnotes {
+  margin-top: 2.5rem;
+  color: var(--ink-soft);
+  border-top: 1px solid var(--line);
+  font-size: 0.9rem;
+}
+
+#write .md-alert {
+  --alert-color: var(--indigo);
+  --alert-bg: rgba(80, 100, 119, 0.075);
+  margin: 1.35rem 0;
+  padding: 0.8rem 1.1rem;
+  color: #4e514d;
+  background: var(--alert-bg);
+  border: 1px solid color-mix(in srgb, var(--alert-color) 24%, transparent);
+  border-left: 4px solid var(--alert-color);
+  border-radius: 0 6px 6px 0;
+}
+
+#write .md-alert-title {
+  margin-bottom: 0.25rem;
+  color: var(--alert-color);
+  font-family: "Noto Serif SC", "Source Han Serif SC", serif;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+#write .md-alert-title::before {
+  content: "";
+  display: inline-block;
+  width: 0.42rem;
+  height: 0.42rem;
+  margin: 0 0.58rem 0.06rem 0.08rem;
+  border: 1px solid currentColor;
+  transform: rotate(45deg);
+}
+
+#write .md-alert p:first-of-type { margin-top: 0.25rem; }
+#write .md-alert p:last-child { margin-bottom: 0; }
+
+#write .md-alert.md-alert-note {
+  --alert-color: #506477;
+  --alert-bg: rgba(80, 100, 119, 0.075);
+}
+
+#write .md-alert.md-alert-tip {
+  --alert-color: #657b60;
+  --alert-bg: rgba(114, 134, 107, 0.1);
+}
+
+#write .md-alert.md-alert-important {
+  --alert-color: #765d71;
+  --alert-bg: rgba(118, 93, 113, 0.075);
+}
+
+#write .md-alert.md-alert-warning {
+  --alert-color: #94682f;
+  --alert-bg: rgba(148, 104, 47, 0.085);
+}
+
+#write .md-alert.md-alert-caution {
+  --alert-color: #a14c40;
+  --alert-bg: rgba(161, 76, 64, 0.08);
+}
+
+#typora-sidebar {
+  color: var(--ink);
+  background: var(--side-bg);
+  border-right: 1px solid var(--line);
+  font-family: "Microsoft YaHei UI", "Noto Sans SC", "Segoe UI", sans-serif;
+  font-weight: 400;
+}
+
+#typora-sidebar .info-panel-tab-wrapper .info-panel-tab .info-panel-tab-border {
+  background: var(--bamboo);
+}
+
+#typora-sidebar .file-list-item,
+#typora-sidebar .outline-item {
+  color: var(--ink-soft);
+  border-radius: 5px;
+}
+
+#typora-sidebar .file-list-item:hover,
+#typora-sidebar .outline-item:hover,
+#typora-sidebar .file-tree-node:not(.file-node-root):hover > .file-node-background {
+  background: var(--item-hover-bg-color) !important;
+}
+
+#typora-sidebar .file-list-item.active,
+#typora-sidebar .file-tree-node.active > .file-node-background {
+  color: var(--ink);
+  background: var(--active-file-bg-color) !important;
+  border-left: 3px solid var(--bamboo);
+}
+
+#typora-sidebar #ty-sidebar-footer {
+  border-top: 1px solid var(--line);
+}
+
+#typora-sidebar input,
+.ty-search-item,
+#typora-quick-open,
+.auto-suggest-container,
+.dropdown-menu {
+  color: var(--ink);
+  background: var(--paper-light);
+  border-color: var(--line);
+}
+
+.typora-quick-open-item.active,
+.auto-suggest-container li.active,
+.auto-suggest-container li:hover,
+.dropdown-menu li a:hover {
+  background: var(--bamboo-pale) !important;
+}
+
+#typora-source {
+  color: var(--ink);
+  background: var(--paper);
+  font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+#typora-source .CodeMirror-lines {
+  max-width: 920px;
+  margin: 0 auto;
+  padding: 3rem clamp(2rem, 7vw, 6rem);
+}
+
+#typora-source .CodeMirror-selected,
+#typora-source .CodeMirror-selectedtext {
+  background: var(--selection) !important;
+}
+
+#typora-source .CodeMirror-cursor {
+  border-left: 2px solid var(--cinnabar) !important;
+}
+
+::-webkit-scrollbar {
+  width: 9px;
+  height: 9px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #b9b8aa;
+  background-clip: padding-box;
+  border: 2px solid transparent;
+  border-radius: 999px;
+}
+
+@media screen and (max-width: 720px) {
+  #write {
+    padding: 2.2rem 1.4rem 9rem;
+    font-size: 1rem;
+  }
+
+  #write h1 { font-size: 2rem; }
+  #write h2 { font-size: 1.5rem; }
+}
+
+@media screen and (min-width: 1400px) {
+  #write,
+  #typora-source .CodeMirror-lines { max-width: 1020px; }
+}
+
+@page {
+  background: #f7f1e3;
+}
+
+@media print {
+  html,
+  body,
+  body.typora-export,
+  .typora-export-content,
+  content {
+    background-color: var(--paper) !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  content {
+    background-image:
+      url("./chunshan-shuzhai/morning-mist-birds.png"),
+      linear-gradient(rgba(247, 241, 227, 0.76), rgba(247, 241, 227, 0.76)),
+      url("./chunshan-shuzhai/mountains.png") !important;
+    background-repeat: no-repeat !important;
+    background-position: center top, center, center bottom !important;
+    background-size: 100% auto, auto, max(100%, 1500px) auto !important;
+    background-blend-mode: darken, normal, normal !important;
+  }
+
+  content #write,
+  #write {
+    width: auto;
+    max-width: none;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    background: transparent;
+    color: #222;
+  }
+}

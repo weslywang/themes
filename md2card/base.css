@@ -1,0 +1,233 @@
+/* Shared Typora editing layer. Repeated #write deliberately wins over card
+   typography without !important or changing Typora's scrolling container. */
+:root {
+  --spacing: 4px;
+  --bg-color: var(--md2card-panel);
+  --text-color: var(--md2card-ink);
+  --side-bar-bg-color: var(--md2card-panel);
+  --control-text-color: var(--md2card-ink);
+  --control-text-hover-color: var(--md2card-ink);
+  --active-file-text-color: var(--md2card-ink);
+  --active-file-border-color: var(--md2card-accent);
+  --active-file-bg-color: var(--md2card-selection);
+  --item-hover-bg-color: var(--md2card-selection);
+  --item-hover-text-color: var(--md2card-ink);
+  --primary-color: var(--md2card-link);
+  --select-text-bg-color: var(--md2card-selection);
+  --select-text-font-color: var(--md2card-ink);
+  --search-select-bg-color: var(--md2card-selection);
+  --rawblock-edit-panel-bd: var(--md2card-panel);
+  --monospace: "Cascadia Code", Consolas, "SFMono-Regular", Menlo, monospace;
+}
+html { font-size: 16px; }
+html, body { background: var(--md2card-shell); color: var(--md2card-ink); }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", "PingFang SC", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+/* Leave content's position, dimensions and overflow entirely to Typora. */
+#write#write {
+  box-sizing: border-box;
+  position: relative;
+  isolation: isolate;
+  transform: none;
+  width: calc(100% - 32px);
+  max-width: 920px;
+  margin: 24px auto 64px;
+  padding: 3.5rem clamp(1.25rem, 5vw, 4rem) 5rem;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--md2card-ink);
+  caret-color: var(--md2card-ink);
+  overflow-wrap: break-word;
+  text-align: left;
+}
+#write#write::before, #write#write::after {
+  pointer-events: none;
+  z-index: -1;
+  transform: none;
+  max-width: 100%;
+}
+#write#write > :first-child { margin-top: 0; }
+#write#write p { font-size: 1rem; line-height: inherit; margin: .75em 0; }
+#write#write h1, #write#write h2, #write#write h3,
+#write#write h4, #write#write h5, #write#write h6 {
+  box-sizing: border-box;
+  width: auto;
+  line-height: 1.4;
+  font-weight: 600;
+  max-width: 100%;
+  text-transform: none;
+  scroll-margin-top: 1.5rem;
+}
+#write#write h1 { font-size: 2rem; margin-top: 1.5em; margin-bottom: .8em; }
+#write#write h2 { font-size: 1.5rem; margin-top: 1.7em; margin-bottom: .75em; }
+#write#write h3 { font-size: 1.25rem; margin-top: 1.5em; margin-bottom: .6em; }
+#write#write h4 { font-size: 1.125rem; margin: 1.3em 0 .5em; }
+#write#write h5, #write#write h6 { font-size: 1rem; margin: 1.2em 0 .5em; }
+#write#write h6 { color: var(--md2card-muted); }
+#write a { color: var(--md2card-link); text-underline-offset: .18em; }
+#write a:focus-visible { outline: 2px solid var(--md2card-accent); outline-offset: 3px; }
+#write#write img { box-sizing: border-box; max-width: 100%; height: auto; transform: none; }
+/* Native list-item counters respect nesting, ol[start] and li[value]. */
+#write#write ul, #write#write ol {
+  display: block;
+  margin: 1em 0;
+  padding: .65em .85em .65em 2.9em;
+}
+#write#write li {
+  display: list-item;
+  list-style: none;
+  position: relative;
+  margin: .4em 0;
+  padding: 0;
+  font-size: 1rem;
+  line-height: 1.75;
+}
+#write#write li::before {
+  position: absolute;
+  top: .875rem;
+  translate: 0 -50%;
+  pointer-events: none;
+}
+#write#write ol > li::before {
+  content: counter(list-item);
+  box-sizing: border-box;
+  position: absolute;
+  left: auto;
+  right: calc(100% + .5em);
+  top: .875rem;
+  translate: 0 -50%;
+  width: auto;
+  min-width: 1.8em;
+  height: auto;
+  min-height: 1.8em;
+  line-height: 1.8;
+  padding: 0 .2em;
+  font-size: .875em;
+  white-space: nowrap;
+  clip-path: none;
+}
+#write#write ul > li::before {
+  left: auto;
+  right: calc(100% + .65em);
+  top: .875rem;
+  translate: 0 -50%;
+}
+#write#write li > p { margin: .3em 0; }
+#write#write li > ul, #write#write li > ol {
+  margin: .35em 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-right: 0;
+  background: transparent;
+  box-shadow: none;
+  border: 0;
+}
+#write#write li > ul::before, #write#write li > ol::before { content: none; }
+#write#write .md-task-list-item::before,
+#write#write .task-list-item::before { content: none; display: none; }
+#write#write .md-task-list-item > input,
+#write#write .task-list-item > input {
+  position: absolute;
+  left: -1.8em;
+  top: .875rem;
+  translate: 0 -50%;
+  margin: 0;
+  width: 1em;
+  height: 1em;
+  accent-color: var(--md2card-accent);
+  cursor: pointer;
+}
+#write blockquote {
+  margin: 1.2em 0;
+  padding: .8em 1.25em;
+  border-left: 3px solid var(--md2card-accent);
+}
+#write#write blockquote > :first-child { margin-top: 0; }
+#write#write blockquote > :last-child { margin-bottom: 0; }
+#write#write blockquote p, #write#write th p, #write#write td p { color: inherit; }
+#write hr { height: 1px; border: 0; margin: 2em 0; background: var(--md2card-border); }
+#write table { width: 100%; border-collapse: collapse; font-size: .9375rem; }
+#write th, #write td { padding: .6em .8em; border: 1px solid var(--md2card-border); }
+#write#write th, #write#write td { line-height: 1.55; font-size: .9375rem; }
+#write#write th p, #write#write td p { font-size: inherit; }
+#write .md-table-fig { max-width: 100%; } /* Do not clip table editing popovers. */
+#write code { font-family: var(--monospace); font-size: .9em; padding: .15em .35em; border-radius: 3px; }
+/* Never style bare pre: CodeMirror uses pre for every internal text line. */
+#write .md-fences, #write pre.md-meta-block {
+  background: var(--md2card-panel);
+  color: var(--md2card-ink);
+  border-radius: 5px;
+}
+#write#write .md-fences, #write#write pre.md-meta-block {
+  margin: 1.2em 0;
+  padding: 1rem;
+  font-family: var(--monospace);
+  font-size: .9rem;
+  line-height: 1.6;
+  text-align: left;
+  tab-size: 4;
+}
+#write#write .md-fences { overflow: visible; }
+#write#write .md-fences.md-fences-with-lineno { padding-left: 0; }
+#write#write .md-fences-advanced:not(.md-focus) { padding: 0; background: transparent; border: 0; }
+#write#write .md-fences.mock-cm { overflow-x: auto; }
+#write#write pre.md-meta-block { white-space: pre-wrap; }
+#write#write .md-fences code, #write#write pre.md-meta-block code {
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font-size: inherit;
+  display: inline;
+}
+#write .CodeMirror, #typora-source .CodeMirror {
+  font-family: var(--monospace);
+  color: var(--md2card-ink);
+  background: transparent;
+}
+.cm-s-inner .CodeMirror-cursor { border-left-color: var(--md2card-ink); }
+.cm-s-inner .CodeMirror-selected, .cm-s-inner.CodeMirror-focused .CodeMirror-selected { background: var(--md2card-selection); }
+.cm-s-inner .CodeMirror-gutters { background: transparent; border-color: var(--md2card-border); }
+.cm-s-inner .CodeMirror-linenumber, .cm-s-inner .cm-comment { color: var(--md2card-muted); }
+.cm-s-inner .cm-keyword, .cm-s-inner .cm-operator, .cm-s-inner .cm-tag { color: var(--md2card-code-keyword); }
+.cm-s-inner .cm-string, .cm-s-inner .cm-string-2 { color: var(--md2card-code-string); }
+.cm-s-inner .cm-number, .cm-s-inner .cm-atom { color: var(--md2card-code-number); }
+.cm-s-inner .cm-variable, .cm-s-inner .cm-property, .cm-s-inner .cm-def { color: var(--md2card-ink); }
+.cm-s-inner .cm-variable-2, .cm-s-inner .cm-builtin, .cm-s-inner .cm-attribute { color: var(--md2card-link); }
+.cm-s-inner .cm-header, .cm-s-inner .cm-link, .cm-s-inner .cm-variable-3 { color: var(--md2card-link); }
+.cm-s-inner .cm-meta, .cm-s-inner .cm-qualifier { color: var(--md2card-muted); }
+#typora-source { background: var(--md2card-panel); color: var(--md2card-ink); }
+#typora-source .CodeMirror-lines { max-width: 920px; margin: auto; padding: 2rem 1.5rem 5rem; line-height: 1.75; }
+#write .md-meta, #write .md-comment, #write .md-content { color: var(--md2card-muted); }
+#write .md-toc { padding: 1rem; border: 1px solid var(--md2card-border); }
+#write .md-toc a { color: var(--md2card-link); }
+.md-rawblock-control, .md-rawblock-tooltip, .md-rawblock-input,
+.code-tooltip, .md-fences .code-tooltip, .autoComplt-list {
+  background: var(--md2card-panel);
+  color: var(--md2card-ink);
+}
+#typora-sidebar, #typora-sidebar input, footer.ty-footer {
+  background: var(--md2card-panel);
+  color: var(--md2card-ink);
+}
+::selection { background: var(--md2card-selection); color: var(--md2card-ink); }
+@media (max-width: 720px) {
+  #write#write { width: calc(100% - 20px); margin: 12px auto 40px; padding: 2.5rem 1.25rem 4rem; }
+  #write#write h1 { font-size: 1.75rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #write *, #write *::before, #write *::after { animation: none !important; transition: none !important; }
+}
+@media print {
+  html, body { background: var(--md2card-page-background); }
+  #write#write {
+    width: 100%; max-width: none; margin: 0; padding: 1cm;
+    box-shadow: none; print-color-adjust: exact; -webkit-print-color-adjust: exact;
+  }
+  #write#write::before, #write#write::after { content: none; }
+  #write#write h1, #write#write h2, #write#write h3 { break-after: avoid; }
+  #write#write .md-table-fig, #write#write .md-fences { overflow: visible; }
+}
