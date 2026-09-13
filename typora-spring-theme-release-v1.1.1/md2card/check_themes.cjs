@@ -7,6 +7,17 @@ const path = require('node:path');
 const { pathToFileURL } = require('node:url');
 const { execFileSync } = require('node:child_process');
 
+function contrast(foreground, background) {
+  const luminance = value => {
+    const scale = value.startsWith('color(srgb') ? 1 : 255;
+    const rgb = value.match(/[\d.]+/g).slice(0, 3).map(Number).map(x => x / scale)
+      .map(x => x <= .04045 ? x / 12.92 : ((x + .055) / 1.055) ** 2.4);
+    return .2126 * rgb[0] + .7152 * rgb[1] + .0722 * rgb[2];
+  };
+  const [light, dark] = [luminance(foreground), luminance(background)].sort((a, b) => b - a);
+  return (light + .05) / (dark + .05);
+}
+
 (async () => {
   execFileSync('python', [path.join(__dirname, 'build_themes.py'), '--check'], { stdio: 'inherit' });
   const root = path.dirname(__dirname);
@@ -59,7 +70,21 @@ const { execFileSync } = require('node:child_process');
             ulMarkerTop: getComputedStyle(write.querySelector('ol ul > li'), '::before').top,
             ulMarkerTranslate: getComputedStyle(write.querySelector('ol ul > li'), '::before').translate,
             paper: getComputedStyle(write).backgroundColor,
+            canvas: [write, document.body, document.documentElement]
+              .map(el => getComputedStyle(el).backgroundColor)
+              .find(color => !color.endsWith(', 0)')),
             dark: getComputedStyle(document.documentElement).colorScheme,
+            strongWeight: Number(getComputedStyle(write.querySelector('strong')).fontWeight),
+            emphasisColor: getComputedStyle(write.querySelector('em')).color,
+            markColor: getComputedStyle(write.querySelector('mark')).color,
+            markBackground: getComputedStyle(write.querySelector('mark')).backgroundColor,
+            kbdBorderBottom: getComputedStyle(write.querySelector('kbd')).borderBottomWidth,
+            footnoteRadius: getComputedStyle(write.querySelector('sup.md-footnote')).borderRadius,
+            alertBefore: getComputedStyle(write.querySelector('.md-alert'), '::before').content,
+            alertStyle: getComputedStyle(write.querySelector('.md-alert')).fontStyle,
+            alertColors: [...write.querySelectorAll('.md-alert')].map(el => getComputedStyle(el).borderLeftColor),
+            alertBackgrounds: [...write.querySelectorAll('.md-alert')].map(el => getComputedStyle(el).backgroundColor),
+            alertTitleColors: [...write.querySelectorAll('.md-alert-text')].map(el => getComputedStyle(el).color),
           };
         });
         assert.equal(geometry.position, 'absolute', file);
@@ -70,6 +95,20 @@ const { execFileSync } = require('node:child_process');
         assert.equal(geometry.preBorder, '0px', file);
         assert.equal(geometry.preBackground, 'rgba(0, 0, 0, 0)', file);
         assert.equal(geometry.fontSize, '16px', file);
+        assert(geometry.strongWeight >= 600, `${file}: weak strong text`);
+        const emphasisContrast = contrast(geometry.emphasisColor, geometry.canvas);
+        assert(emphasisContrast >= 4.5, `${file}: low-contrast emphasis ${emphasisContrast.toFixed(2)}`);
+        assert.notEqual(geometry.markBackground, 'rgb(255, 255, 0)', `${file}: default yellow mark`);
+        const markContrast = contrast(geometry.markColor, geometry.markBackground);
+        assert(markContrast >= 4.5, `${file}: low-contrast mark ${markContrast.toFixed(2)}`);
+        assert.equal(geometry.kbdBorderBottom, '2px', `${file}: unstyled kbd`);
+        assert.notEqual(geometry.footnoteRadius, '0px', `${file}: unstyled footnote`);
+        assert.equal(geometry.alertBefore, 'none', `${file}: quote decoration leaked into alert`);
+        assert.equal(geometry.alertStyle, 'normal', `${file}: italic quote style leaked into alert`);
+        assert.equal(new Set(geometry.alertColors).size, 5, `${file}: alert types are indistinguishable`);
+        assert.deepEqual(geometry.alertTitleColors, geometry.alertColors, `${file}: alert title and border disagree`);
+        const alertContrasts = geometry.alertTitleColors.map((color, index) => contrast(color, geometry.alertBackgrounds[index]));
+        assert(alertContrasts.every(value => value >= 4.5), `${file}: low-contrast alert title ${Math.min(...alertContrasts).toFixed(2)}`);
         assert.equal(geometry.taskMarker, 'none', file);
         assert(!geometry.ulMarker.includes('counter('), `${file}: mixed list has number`);
         assert.equal(geometry.ulMarkerPosition, 'absolute', `${file}: bullet on separate line`);

@@ -66,6 +66,26 @@ body {
 #write#write h4 { font-size: 1.125rem; margin: 1.3em 0 .5em; }
 #write#write h5, #write#write h6 { font-size: 1rem; margin: 1.2em 0 .5em; }
 #write#write h6 { color: var(--md2card-muted); }
+#write#write strong { font-weight: 650; }
+#write#write em { color: var(--md2card-emphasis); }
+#write#write mark {
+  padding: .06em .24em;
+  color: var(--md2card-ink);
+  background: color-mix(in srgb, var(--md2card-link) 16%, var(--md2card-panel));
+  border-bottom: 1px solid color-mix(in srgb, var(--md2card-link) 55%, transparent);
+  border-radius: 2px;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+#write#write del, #write#write s {
+  color: var(--md2card-muted);
+  text-decoration-color: color-mix(in srgb, currentColor 75%, transparent);
+  text-decoration-thickness: .08em;
+}
+#write#write u, #write#write ins {
+  text-decoration-color: var(--md2card-link);
+  text-underline-offset: .18em;
+}
 #write a { color: var(--md2card-link); text-underline-offset: .18em; }
 #write a:focus-visible { outline: 2px solid var(--md2card-accent); outline-offset: 3px; }
 #write#write img { box-sizing: border-box; max-width: 100%; height: auto; transform: none; }
@@ -147,6 +167,20 @@ body {
 #write#write blockquote > :first-child { margin-top: 0; }
 #write#write blockquote > :last-child { margin-bottom: 0; }
 #write#write blockquote p, #write#write th p, #write#write td p { color: inherit; }
+#write kbd {
+  margin: 0 .1em;
+  padding: .08em .42em;
+  color: var(--md2card-ink);
+  background: var(--md2card-panel);
+  border: 1px solid var(--md2card-border);
+  border-bottom-width: 2px;
+  border-radius: 4px;
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--md2card-ink) 10%, transparent);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: .78em;
+  white-space: nowrap;
+  vertical-align: .08em;
+}
 #write hr { height: 1px; border: 0; margin: 2em 0; background: var(--md2card-border); }
 #write table { width: 100%; border-collapse: collapse; font-size: .9375rem; }
 #write th, #write td { padding: .6em .8em; border: 1px solid var(--md2card-border); }
@@ -202,8 +236,74 @@ body {
 #typora-source { background: var(--md2card-panel); color: var(--md2card-ink); }
 #typora-source .CodeMirror-lines { max-width: 920px; margin: auto; padding: 2rem 1.5rem 5rem; line-height: 1.75; }
 #write .md-meta, #write .md-comment, #write .md-content { color: var(--md2card-muted); }
-#write .md-toc { padding: 1rem; border: 1px solid var(--md2card-border); }
+#write .md-toc {
+  padding: 1rem 1.2rem;
+  background: color-mix(in srgb, var(--md2card-panel) 88%, transparent);
+  border: 1px solid var(--md2card-border);
+  border-radius: 6px;
+}
 #write .md-toc a { color: var(--md2card-link); }
+#write .md-toc-inner { text-underline-offset: .16em; }
+
+#write sup.md-footnote {
+  margin: 0 .12em;
+  padding: .05em .3em;
+  color: var(--md2card-emphasis);
+  background: color-mix(in srgb, var(--md2card-link) 10%, var(--md2card-panel));
+  border: 1px solid var(--md2card-border);
+  border-radius: 999px;
+  font-family: var(--monospace);
+  font-size: .68em;
+  font-weight: 600;
+  text-decoration: none;
+}
+#write .footnotes, #write .footnotes-area {
+  margin-top: 2.5rem;
+  padding-top: .8rem;
+  color: var(--md2card-muted);
+  border-top: 1px solid var(--md2card-border);
+  font-size: .9rem;
+}
+#write .footnote-line { color: inherit; }
+#write .reversefootnote { color: var(--md2card-link); text-decoration: none; }
+
+/* Typora alerts are semantic callouts, not quotation blocks. */
+#write#write .md-alert {
+  --alert-color: var(--md2card-note);
+  margin: 1.2rem 0;
+  padding: .8rem 1rem;
+  color: var(--md2card-ink);
+  background: color-mix(in srgb, var(--alert-color) 8%, var(--md2card-panel));
+  border: 1px solid color-mix(in srgb, var(--alert-color) 30%, var(--md2card-panel));
+  border-left: 4px solid var(--alert-color);
+  border-radius: 0 6px 6px 0;
+  box-shadow: none;
+  font-style: normal;
+}
+#write#write blockquote.md-alert::before,
+#write#write blockquote.md-alert::after { content: none; }
+#write#write .md-alert > p:not(.md-alert-text):not(.md-alert-title) { color: inherit; }
+#write#write .md-alert > :first-child { margin-top: 0; }
+#write#write .md-alert > :last-child { margin-bottom: 0; }
+#write#write .md-alert-text,
+#write#write .md-alert-title {
+  margin-bottom: .25rem;
+  color: var(--alert-color);
+  font-size: .92rem;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: .02em;
+}
+#write#write .md-alert-note { --alert-color: var(--md2card-note); }
+#write#write .md-alert-tip { --alert-color: var(--md2card-tip); }
+#write#write .md-alert-important { --alert-color: var(--md2card-important); }
+#write#write .md-alert-warning { --alert-color: var(--md2card-warning); }
+#write#write .md-alert-caution { --alert-color: var(--md2card-caution); }
+#write#write .md-alert-text-note { color: var(--md2card-note); }
+#write#write .md-alert-text-tip { color: var(--md2card-tip); }
+#write#write .md-alert-text-important { color: var(--md2card-important); }
+#write#write .md-alert-text-warning { color: var(--md2card-warning); }
+#write#write .md-alert-text-caution { color: var(--md2card-caution); }
 .md-rawblock-control, .md-rawblock-tooltip, .md-rawblock-input,
 .code-tooltip, .md-fences .code-tooltip, .autoComplt-list {
   background: var(--md2card-panel);

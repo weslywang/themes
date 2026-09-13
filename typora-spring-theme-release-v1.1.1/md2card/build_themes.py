@@ -24,6 +24,22 @@ THEMES = {
     "japanese-magazine": "日本杂志",
 }
 
+PANELS = {
+    "bytedance": "#f7f8fa",
+    "alibaba": "#fffaf5",
+    "art-deco": "#1a1a1a",
+    "glassmorphism": "#242424",
+    "warm": "#fff8f5",
+    "minimal": "#f7f7f7",
+    "minimalist": "#ffffff",
+    "dreamy": "#f5f7ff",
+    "nature": "#ffffff",
+    "xiaohongshu": "#f9f7fc",
+    "notebook": "#f8f9fa",
+    "business": "#f8fafc",
+    "japanese-magazine": "#f9f9f9",
+}
+
 
 def js_string_after(source: str, start: int) -> str:
     pos = source.index("css:", start) + 4
@@ -159,6 +175,7 @@ def build(source_path: Path, output_dir: Path) -> None:
         for pale, readable in ink.items():
             adapted = re.sub(r"(?m)(^\s*color:\s*)" + pale + r"\b", r"\g<1>" + readable, adapted)
         text_accent = ink.get(accent, accent)
+        panel = PANELS[theme_id]
         shell = "#161616" if dark else "#f7f7f8"
         if theme_id == "xiaohongshu":
             shell = "#8863cf"
@@ -196,12 +213,18 @@ def build(source_path: Path, output_dir: Path) -> None:
   --md2card-page-background: {background};
   --md2card-accent: {accent};
   --md2card-link: {text_accent};
+  --md2card-emphasis: {"var(--md2card-link)" if dark else "color-mix(in srgb, var(--md2card-link) 72%, #111827)"};
   --md2card-shell: {shell};
   --md2card-ink: {"#ececec" if dark else "#333"};
   --md2card-muted: {"#b4b8c0" if dark else "#68707b"};
-  --md2card-panel: {"#242424" if dark else "#f5f6f8"};
-  --md2card-border: {"#555" if dark else "#d9dde3"};
-  --md2card-selection: {"#415771" if dark else "#d7e5fa"};
+  --md2card-panel: {panel};
+  --md2card-border: color-mix(in srgb, var(--md2card-link) 22%, var(--md2card-panel));
+  --md2card-selection: color-mix(in srgb, var(--md2card-link) 16%, var(--md2card-panel));
+  --md2card-note: var(--md2card-emphasis);
+  --md2card-tip: {"#7fca91" if dark else "color-mix(in srgb, var(--md2card-link) 15%, #216a35)"};
+  --md2card-important: {"#c5a5f5" if dark else "color-mix(in srgb, var(--md2card-link) 20%, #6f42a3)"};
+  --md2card-warning: {"#e0b66f" if dark else "color-mix(in srgb, var(--md2card-link) 20%, #815600)"};
+  --md2card-caution: {"#f08d86" if dark else "color-mix(in srgb, var(--md2card-link) 20%, #a22c28)"};
   --md2card-code-keyword: {"#c5a5f5" if dark else "#7140a2"};
   --md2card-code-string: {"#9bd29a" if dark else "#286b38"};
   --md2card-code-number: {"#f0ba87" if dark else "#9a451b"};
