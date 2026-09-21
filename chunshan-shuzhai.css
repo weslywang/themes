@@ -17,6 +17,11 @@
   --selection: #dce5d8;
   --code-bg: #f1ede3;
   --side-bg: #f2ecdf;
+  --bg-color: var(--paper);
+  --text-color: var(--ink);
+  --select-text-bg-color: var(--selection);
+  --select-text-font-color: var(--ink);
+  --monospace: "Cascadia Code", "Fira Code", Consolas, monospace;
   --control-text-color: var(--ink);
   --active-file-bg-color: #e6e2d5;
   --active-file-text-color: var(--ink);
@@ -34,7 +39,7 @@ html {
 body {
   color: var(--ink);
   background: var(--paper);
-  font-family: "Noto Serif SC", "Source Han Serif SC", "STSong", SimSun, serif;
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", "STSong", SimSun, Georgia, serif;
   font-weight: 400;
   font-kerning: normal;
   -webkit-font-smoothing: antialiased;
@@ -56,6 +61,7 @@ content {
 content #write,
 #write {
   box-sizing: border-box;
+  width: 100%;
   max-width: 920px;
   min-height: 100%;
   margin: 0 auto;
@@ -142,22 +148,22 @@ content #write,
 }
 
 #write h3::after {
-  width: 1.9rem;
-  height: 1.3rem;
+  width: 1.7rem;
+  height: 1.18rem;
   background-image: url("./chunshan-shuzhai/h3-ruyi.png");
   vertical-align: -0.28em;
 }
 
 #write h4::after {
-  width: 1.8rem;
-  height: 1.05rem;
+  width: 1.55rem;
+  height: 0.95rem;
   background-image: url("./chunshan-shuzhai/h4-bamboo.png");
   vertical-align: -0.18em;
 }
 
 #write h5::after {
-  width: 1.05rem;
-  height: 1.05rem;
+  width: 0.92rem;
+  height: 0.92rem;
   background-image: url("./chunshan-shuzhai/h5-seal.png");
   vertical-align: -0.16em;
 }
@@ -263,6 +269,7 @@ content #write,
   border-radius: 4px;
   font-family: "Cascadia Code", "Fira Code", Consolas, monospace;
   font-size: 0.88em;
+  overflow-wrap: anywhere;
 }
 
 #write .md-fences {
@@ -279,6 +286,8 @@ content #write,
   font-size: 0.9rem;
   line-height: 1.65;
   tab-size: 4;
+  max-width: 100%;
+  overflow-x: auto;
 }
 
 #write .md-fences.md-focus {
@@ -381,6 +390,8 @@ content #write,
 #write .md-table-fig .md-table td {
   padding: 0.6rem 0.75rem;
   border: 1px solid var(--line);
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 #write th,
@@ -413,8 +424,17 @@ content #write,
   border-radius: 6px;
 }
 
+#write .md-toc a {
+  border-bottom: 0;
+}
+
 #write .md-task-list-item > input {
-  margin-left: -1.45em;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0.9em;
+  height: 0.9em;
+  margin: 0.45em 0 0 -1.45em;
   accent-color: var(--bamboo);
 }
 
@@ -427,6 +447,32 @@ content #write,
   color: var(--ink-soft);
   border-top: 1px solid var(--line);
   font-size: 0.9rem;
+}
+
+#write .footnotes .reversefootnote {
+  color: var(--cinnabar);
+  border-bottom: 0;
+}
+
+#write .md-math-block {
+  max-width: 100%;
+  margin: 1.25rem 0;
+  overflow-x: auto;
+}
+
+#write .md-diagram-panel {
+  max-width: 100%;
+  margin: 1.4rem 0;
+  padding: 0.8rem;
+  overflow-x: auto;
+  background: rgba(252, 249, 240, 0.56);
+  border: 1px solid rgba(114, 134, 107, 0.18);
+  border-radius: 6px;
+}
+
+#write .md-diagram-panel svg {
+  max-width: 100%;
+  height: auto;
 }
 
 #write .md-alert {
@@ -579,16 +625,21 @@ content #write,
 }
 
 @media screen and (max-width: 720px) {
+  content #write,
   #write {
     padding: 2.2rem 1.4rem 9rem;
     font-size: 1rem;
   }
 
+  content #write h1,
   #write h1 { font-size: 2rem; }
+
+  content #write h2,
   #write h2 { font-size: 1.5rem; }
 }
 
 @media screen and (min-width: 1400px) {
+  content #write,
   #write,
   #typora-source .CodeMirror-lines { max-width: 1020px; }
 }
@@ -628,5 +679,43 @@ content #write,
     padding: 0;
     background: transparent;
     color: #222;
+  }
+
+  #write .md-fences,
+  #write .md-fences pre,
+  #write pre {
+    white-space: pre-wrap !important;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    overflow-x: visible;
+  }
+
+  #write .md-fences {
+    break-inside: auto;
+    box-shadow: none;
+  }
+
+  #write table {
+    font-size: 0.88rem;
+  }
+
+  #write thead {
+    display: table-header-group;
+  }
+
+  #write tr,
+  #write img,
+  #write .md-diagram-panel,
+  #write .md-math-block {
+    break-inside: avoid-page;
+  }
+
+  #write h1,
+  #write h2,
+  #write h3,
+  #write h4,
+  #write h5,
+  #write h6 {
+    break-after: avoid-page;
   }
 }
